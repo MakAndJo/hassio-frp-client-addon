@@ -1,0 +1,33 @@
+name: "FRP Client"
+description: "Provides FRP Client for HAOS to setup reverse proxy above CG-NAT"
+version: "1.0.2"
+slug: "frp_client"
+init: false
+startup: services
+boot: "auto"
+host_network: true
+network: host
+map:
+  - "share:rw"
+privileged:
+  - NET_ADMIN
+devices:
+  - /dev/net/tun
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+schema:
+  serverAddr: str
+  serverPort: int
+  authToken: str?
+  localPort: int
+  remotePort: int
+options:
+  serverAddr: "1.2.3.4"
+  serverPort: 7000
+  authToken: "123456789"
+  localPort: 8123
+  remotePort: 20001
