@@ -15,19 +15,17 @@ function stop_frpc() {
 }
 
 # Check if frpc.ini exist. If not create with template
-
 if [ ! -f $CONFIG_PATH ]; then
     echo "Creating frpc.ini"
     echo "[common]" > $CONFIG_PATH
     echo "server_addr = ${SERVER_IP}" >> $CONFIG_PATH
     echo "server_port = ${SERVER_PORT}" >> $CONFIG_PATH
 
-    # If token is filled then add token authentication
+    # If token is filled then add it
     if [ ! -z "${AUTH_TOKEN}" ]; then
         echo "token = ${AUTH_TOKEN}" >> $CONFIG_PATH
     fi
 
-    echo "Adding HA Exposure......."
     echo "" >> $CONFIG_PATH
     echo "[hass]" >> $CONFIG_PATH
     echo "type = tcp" >> $CONFIG_PATH
@@ -45,8 +43,6 @@ cat $CONFIG_PATH
 
 cd /usr/src
 ./frpc -c $CONFIG_PATH & WAIT_PIDS+=($!)
-
-tail -f /share/frpc.log &
 
 trap "stop_frpc" SIGTERM SIGHUP
 wait "${WAIT_PIDS[@]}"
