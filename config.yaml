@@ -25,9 +25,11 @@ schema:
   authToken: str?
   localPort: int
   remotePort: int
+  tlsEnable: bool
 options:
   serverAddr: "1.2.3.4"
   serverPort: 7000
   authToken: "123456789"
   localPort: 8123
   remotePort: 20001
+  tlsEnable: true

@@ -8,6 +8,7 @@ SERVER_PORT=$(bashio::config 'serverPort')
 AUTH_TOKEN=$(bashio::config 'authToken')
 LOCAL_PORT=$(bashio::config 'localPort')
 REMOTE_PORT=$(bashio::config 'remotePort')
+TLS_ENABLE=$(bashio::config 'tlsEnable')
 
 function stop_frpc() {
     bashio::log.info "Shutdown frpc client"
@@ -33,6 +34,7 @@ if [ ! -f $CONFIG_PATH ]; then
     echo "local_ip = 127.0.0.1 " >> $CONFIG_PATH
     echo "local_port = ${LOCAL_PORT}" >> $CONFIG_PATH
     echo "remote_port = ${REMOTE_PORT}" >> $CONFIG_PATH
+    echo "tls_enable = ${TLS_ENABLE}" >> $CONFIG_PATH
 
     echo "Creating frpc.ini done"
 fi
