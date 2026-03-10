@@ -1,6 +1,6 @@
 name: "FRP Client"
 description: "Provides FRP Client for HAOS to setup reverse proxy above CG-NAT"
-version: "1.0.2"
+version: "1.0.3"
 slug: "frp_client"
 init: false
 startup: services
