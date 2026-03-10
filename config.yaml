@@ -1,6 +1,6 @@
 name: "FRP Client"
 description: "Provides FRP Client for HAOS to setup reverse proxy above CG-NAT"
-version: "1.0.3"
+version: "1.0.4"
 slug: "frp_client"
 init: false
 startup: services
@@ -23,6 +23,7 @@ schema:
   serverAddr: str
   serverPort: int
   authToken: str?
+  proxyName: str
   localPort: int
   remotePort: int
   tlsEnable: bool
@@ -30,6 +31,7 @@ options:
   serverAddr: "1.2.3.4"
   serverPort: 7000
   authToken: "123456789"
+  proxyName: "hass"
   localPort: 8123
   remotePort: 20001
   tlsEnable: true

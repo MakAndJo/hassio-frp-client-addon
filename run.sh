@@ -6,6 +6,7 @@ CONFIG_PATH='/usr/src/frpc.ini'
 SERVER_IP=$(bashio::config 'serverAddr')
 SERVER_PORT=$(bashio::config 'serverPort')
 AUTH_TOKEN=$(bashio::config 'authToken')
+PROXY_NAME=$(bashio::config 'proxyName')
 LOCAL_PORT=$(bashio::config 'localPort')
 REMOTE_PORT=$(bashio::config 'remotePort')
 TLS_ENABLE=$(bashio::config 'tlsEnable')
@@ -28,7 +29,7 @@ if [ ! -f $CONFIG_PATH ]; then
     fi
 
     echo "" >> $CONFIG_PATH
-    echo "[hass]" >> $CONFIG_PATH
+    echo "[${PROXY_NAME}]" >> $CONFIG_PATH
     echo "type = tcp" >> $CONFIG_PATH
 
     echo "local_ip = 127.0.0.1 " >> $CONFIG_PATH
