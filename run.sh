@@ -28,11 +28,13 @@ if [ ! -f $CONFIG_PATH ]; then
         echo "token = ${AUTH_TOKEN}" >> $CONFIG_PATH
     fi
 
+    echo "login_fail_exit = false" >> $CONFIG_PATH
+
     echo "" >> $CONFIG_PATH
     echo "[${PROXY_NAME}]" >> $CONFIG_PATH
     echo "type = tcp" >> $CONFIG_PATH
 
-    echo "local_ip = 127.0.0.1 " >> $CONFIG_PATH
+    echo "local_ip = 127.0.0.1" >> $CONFIG_PATH
     echo "local_port = ${LOCAL_PORT}" >> $CONFIG_PATH
     echo "remote_port = ${REMOTE_PORT}" >> $CONFIG_PATH
     echo "tls_enable = ${TLS_ENABLE}" >> $CONFIG_PATH
@@ -43,6 +45,13 @@ fi
 bashio::log.info "Starting frp client"
 
 cat $CONFIG_PATH
+
+bashio::log.info "Waiting for internet connection..."
+
+while ! ping -c 1 ${SERVER_IP} >/dev/null 2>&1; do
+    bashio::log.warning "Server not reachable yet..."
+    sleep 5
+done
 
 cd /usr/src
 ./frpc -c $CONFIG_PATH & WAIT_PIDS+=($!)
