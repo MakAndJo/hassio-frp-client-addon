@@ -42,16 +42,16 @@ if [ ! -f $CONFIG_PATH ]; then
     echo "Creating frpc.ini done"
 fi
 
-bashio::log.info "Starting frp client"
-
-cat $CONFIG_PATH
-
 bashio::log.info "Waiting for internet connection..."
 
-while ! ping -c 1 ${SERVER_IP} >/dev/null 2>&1; do
+while ! ping -c 1 1.1.1.1 >/dev/null 2>&1; do
     bashio::log.warning "Server not reachable yet..."
     sleep 5
 done
+
+bashio::log.info "Starting frp client"
+
+cat $CONFIG_PATH
 
 cd /usr/src
 ./frpc -c $CONFIG_PATH & WAIT_PIDS+=($!)
